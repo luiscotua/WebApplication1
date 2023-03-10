@@ -31,7 +31,8 @@ namespace WebApplication1.Controllers
 
             var cliente = new HttpClient();
             cliente.BaseAddress = new Uri("http://200.7.103.154:99");
-            //cliente.DefaultRequestHeaders.Add("Apikey", "TKHYOADJQDUHSSPDTODUGVFWXTWPJOZF");
+            cliente.DefaultRequestHeaders.Add("Apikey", "TKHYOADJQDUHSSPDTODUGVFWXTWPJOZF");
+            cliente.DefaultRequestHeaders.Add("CodigoAplicacion", "f55dae5a-b9b9-45c6-aa9c-f417f5fecd8b");
             var content = new StringContent(JsonConvert.SerializeObject(new Models.UsuarioDto { UserName = _usuario.Correo, Password = _usuario.Clave }), Encoding.UTF8, "application/json");
 
             var response = await cliente.PostAsync("/api/loginazure", content);
