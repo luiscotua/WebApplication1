@@ -1,0 +1,88 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model List<Libro>
+@{
+    ViewData["Title"] = "Ventas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h1 class="display-4">Bienvenido</h1>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        Lista Libro
+    </div>
+    <div class="card-body">
+        @*<a asp-action="Pais" asp-controller="Pais" asp-route-idPais="0" class="btn btn-success btn-sm">Nuevo Pais</a>*@
+        <button type="button" class="btn btn-success btn-sm" onclick="ShowModal()" data-target="#exampleModal">Nuevo libro</button>
+        <hr />
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Titulo</th>
+                    <th>Body</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Title</td>
+                        <td>@item.Body</td>
+                        <td>
+                            <button type="button" class="btn btn-info btn-sm" onclick="ShowModal()" data-target="#exampleModal">Editar</button>
+                            <button type="button" class="btn btn-danger btn-sm" onclick="ShowModal()" data-target="#exampleModal">Eliminar</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @if (User.IsInRole("Admin"))
+            {
+                    <div class="modal-body">
+                        <p>Permiso concedido</p>
+                    </div>
+            }
+            else
+            {
+                    <div class="modal-body">
+                        <p>Permiso denegado</p>
+                    </div>
+            }
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="HideModal()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function ShowModal() {
+
+        $("#exampleModal").modal('show');
+    }
+
+    function HideModal() {
+
+        $("#exampleModal").modal('hide');
+    }
+</script>
